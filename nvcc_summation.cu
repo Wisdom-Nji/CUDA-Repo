@@ -1,27 +1,27 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
+#include <thrust/reduce.h>
+#include <thrust/sequence.h>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
 
 bool summation() {
 	const int N = 5000000;
 
 	// Create the array
-	vector<int> a(N);
+	thrust::device_vector<int> a(N);
 
 	// Fill the array
-	for( int i =0;i < N; ++i )
-		a[i] = i;
+	thrust::sequence( a.begin(), a.end(), 0);
 	
 	// Calculate the sum of the Array
-	int sumA = 0;
-	for( int i =0;i < N; ++i )
-		sumA += a[i];
+	int sumA = thrust::reduce( a.begin(), a.end(), 0);
 	
 	int sumCheck = 0;
-	for( int i =0;i < N; ++i )
+	for( int i =0;i < n; ++i )
 		sumCheck += i;
-	
+
 	// Check results agree
 	if( sumA == sumCheck )
 		cout << "Test Succeeded!" << endl;
@@ -36,6 +36,5 @@ bool summation() {
 
 int main() {
 	bool summedCorrect = summation();
-	
 	return summedCorrect ? 0 : 1;
 }
