@@ -19,7 +19,7 @@ bool summation() {
 	int sumA = thrust::reduce( a.begin(), a.end(), 0);
 	
 	int sumCheck = 0;
-	for( int i =0;i < n; ++i )
+	for( int i =0;i < N; ++i )
 		sumCheck += i;
 
 	// Check results agree
